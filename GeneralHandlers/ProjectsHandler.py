@@ -1,3 +1,4 @@
+import os
 from GeneralHandlers import ConfigHandler, GitHandler
 from SupportScripts import ConsoleColours
 
@@ -15,6 +16,14 @@ def CheckAndSetProjectsConfig():
 
     projectsDir = projectsConfigData["projectsDir"]
 
+def OpenProjectDirectory(path):
+    print(f"{ConsoleColours.bcolours.BOLD}[ProjectsHandler]{ConsoleColours.bcolours.ENDC} {ConsoleColours.bcolours.OKCYAN}Opening Project Directory...{ConsoleColours.bcolours.ENDC}")
+    if os.name == "nt":
+        os.startfile(path)
+    else:
+        os.system(f"xdg-open {path}")
+    print(f"{ConsoleColours.bcolours.BOLD}[ProjectsHandler]{ConsoleColours.bcolours.ENDC} {ConsoleColours.bcolours.OKGREEN}Opened Project Directory.{ConsoleColours.bcolours.ENDC}")
+
 def CreateProject(name="", private=True):
     #Creates a git repo and clones it into the projects directory.
     global projectsDir
@@ -28,3 +37,4 @@ def CreateProject(name="", private=True):
     cloneLocation = projectsDir + name
 
     GitHandler.CloneRepo(sshURL, cloneLocation)
+    OpenProjectDirectory(cloneLocation)
