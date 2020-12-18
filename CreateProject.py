@@ -1,13 +1,19 @@
 import sys
+import os
 from GeneralHandlers import ConfigHandler, ProjectsHandler, GitHandler
 
 name = ""
 private = True
 
-print(len(sys.argv))
+def GenerateShellScript():
+    pythonName = os.path.basename(sys.executable)
+    print(pythonName)
+
+GenerateShellScript()
+
 if len(sys.argv) == 2:
     name = str(sys.argv[1])
-if len(sys.argv) >= 3:
+elif len(sys.argv) >= 3:
     name = str(sys.argv[1])
     private = str(sys.argv[2])
 
@@ -26,3 +32,4 @@ GitHandler.CheckAndSetGitConfig()
 
 #Create the project.
 ProjectsHandler.CreateProject(name, private)
+
