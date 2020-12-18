@@ -16,9 +16,23 @@ def CheckIfConfigExists(path):
     else:
         return False
 
+def CheckAndGetConfig(configPath, configTemplate):
+    #Checks if a config exists using the ConfigHandler and if so reads and stores the data in configData and returns it, if not it creates one in the correct format.
+    if CheckIfConfigExists(configPath):
+        gitConfigData = ReadConfig(configPath)
+    else:
+        gitConfigData = GenerateConfig(configTemplate, configPath)
+
+    return gitConfigData
+
 def GenerateConfig(configDictionary, configPath):
     directory = configPath.rpartition("/")[0]
-    print(CheckDirExistsAndCreateIfNot(directory))
+    CheckDirExistsAndCreateIfNot(directory)
+
+    #Loop through keys in config file and set values of keys based on user input.
+    print(f"A config file {configPath} that should exist doesn't, creating it now, please be prepared to provide information. ")
+    for key in configDictionary:
+        configDictionary[key] = input(f"Please enter the following information {key}: ")
 
     #Create and add data to config file.
     with open(configPath, "w+") as f:

@@ -1,5 +1,6 @@
 import requests
 import json
+import subprocess
 from GeneralHandlers import ConfigHandler
 
 #Config infomation.
@@ -9,33 +10,36 @@ gitConfigData = {}
 gitUsername = ""
 gitToken = ""
 
-def CheckAndGetGitConfig():
+def CheckAndSetGitConfig():
     #Checks if a git-config exists using the ConfigHandler and if so sets the username and token, if not it creates one in the correct format.
     global gitConfigData, gitUsername, gitToken
 
     gitConfigPath = "./cfg/git-config.json"
     gitConfigTemplate = {"gitUsername": "", "gitToken": ""}
 
-    if ConfigHandler.CheckIfConfigExists(gitConfigPath):
-        gitConfigData = ConfigHandler.ReadConfig(gitConfigPath)
-    else:
-        gitConfigData = ConfigHandler.GenerateConfig(gitConfigTemplate, gitConfigPath)
+    gitConfigData = ConfigHandler.CheckAndGetConfig(gitConfigPath, gitConfigTemplate)
 
     gitUsername = gitConfigData["gitUsername"]
     gitToken = gitConfigData["gitToken"]
 
-def CreateRepo(name, visibility):
+def CreateRepo(name, private):
     #Creates a new GitHub repo via the GitHub api using the users login token.
     url = "https://api.github.com/user/repos"
-    payload = {"name": name, "private": visibility, "auto_init": True}
+    payload = {"name": name, "private": private, "auto_init": True}
 
-    print(f"Creating Repository {name} for user {gitUsername}. Private: {visibility}.")
+    print(f"Creating Repository {name} for user {gitUsername}. Private: {private}.")
     r = requests.post(url, auth=(gitUsername, gitToken), data=json.dumps(payload))
     
+    rJson = json.loads(r.text)
+
     if r.ok:
         print(f"Repository {name} created.")
     else:
-        print(r.text)
+        print(f"Error: {rJson['message']}")
 
-    rJson = json.loads(r.text)
     return rJson
+
+def CloneRepo(sshURL, projectsDir):
+    p = subprocess.Popen(['git', 'clone', str(sshURL), projectsDir])
+    p.wait()
+    p.terminate()
