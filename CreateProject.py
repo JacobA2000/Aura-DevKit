@@ -2,12 +2,26 @@ import sys
 import os
 from GeneralHandlers import ConfigHandler, ProjectsHandler, GitHandler
 
+def GenerateShellScript():
+    #Use ConfigHandler method to check if the shell directory exists.
+    ConfigHandler.CheckDirExistsAndCreateIfNot("./shell")
+    pythonName = os.path.basename(sys.executable)
+    
+    if os.name == "nt":
+        #Checks if .bat file exists
+        if os.path.exists("./shell/createproject.bat") == False:
+            #Create bat file to run quickly on windows.
+            with open("./shell/createproject.bat", "w") as batf:
+                batf.write(f"{pythonName} \"{__file__}\" %1 %2")
+
+    else:
+        if os.path.exists("./shell/createproject.sh") == False:
+            #Create shell file to run quickly on linux.
+            with open("./shell/createproject.sh", "w") as batf:
+                batf.write(f"{pythonName} \"{__file__}\" %1 %2")
+
 name = ""
 private = True
-
-def GenerateShellScript():
-    pythonName = os.path.basename(sys.executable)
-    print(pythonName)
 
 GenerateShellScript()
 
@@ -32,4 +46,5 @@ GitHandler.CheckAndSetGitConfig()
 
 #Create the project.
 ProjectsHandler.CreateProject(name, private)
+
 
