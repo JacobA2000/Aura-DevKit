@@ -40,6 +40,7 @@ def CreateRepo(name, private):
     return rJson
 
 def CloneRepo(sshURL, projectsDir):
+    #Starts a clone using the ssh clone url (User will of needed to setup an ssh key with github for this to work), Starts a clone subprocess, waits for it to finish then temrinates it.
     p = subprocess.Popen(['git', 'clone', str(sshURL), projectsDir])
     p.wait()
     p.terminate()
