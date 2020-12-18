@@ -22,7 +22,7 @@ def GenerateShellScript():
             #Create shell file to run quickly on linux.
             print(f"{ConsoleColours.bcolours.BOLD}[CreateProject]{ConsoleColours.bcolours.ENDC} {ConsoleColours.bcolours.OKCYAN}Creating shell script at {os.getcwd()}/shell/createproject.sh ...{ConsoleColours.bcolours.ENDC}")
             with open("./shell/createproject.sh", "w") as batf:
-                batf.write(f"{pythonName} \"{__file__}\" %1 %2")
+                batf.write(f"{pythonName} \"{os.getcwd() + __file__}\" %1 %2")
             print(f"{ConsoleColours.bcolours.BOLD}[CreateProject]{ConsoleColours.bcolours.ENDC} {ConsoleColours.bcolours.OKGREEN}Shell script successfully generated.{ConsoleColours.bcolours.ENDC}")
 
 name = ""
