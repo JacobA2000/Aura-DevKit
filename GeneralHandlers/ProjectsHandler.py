@@ -1,4 +1,5 @@
 from GeneralHandlers import ConfigHandler, GitHandler
+from SupportScripts import ConsoleColours
 
 projectsConfigData = {}
 projectsDir = ""
@@ -19,7 +20,7 @@ def CreateProject(name="", private=True):
     global projectsDir
 
     if name == "":
-        name = input("Project Name: ")
+        name = input(f"{ConsoleColours.bcolours.BOLD}[ProjectsHandler]{ConsoleColours.bcolours.ENDC} {ConsoleColours.bcolours.OKCYAN}Project Name: {ConsoleColours.bcolours.ENDC}")
 
     gitRepo = GitHandler.CreateRepo(name, private)
     sshURL = gitRepo["ssh_url"]

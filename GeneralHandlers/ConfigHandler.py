@@ -1,5 +1,6 @@
 import json
 import os
+from SupportScripts import ConsoleColours 
 
 def CheckDirExistsAndCreateIfNot(path):
     #Checks if a directory exists and if not creates it.
@@ -7,7 +8,8 @@ def CheckDirExistsAndCreateIfNot(path):
         return True
     else:
         os.mkdir(path)
-        return f"Created directory {path}."
+        print(f"{ConsoleColours.bcolours.BOLD}[ConfigHandler]{ConsoleColours.bcolours.ENDC} {ConsoleColours.bcolours.OKGREEN}Created directory {path}{ConsoleColours.bcolours.ENDC}.")
+        return True
 
 def CheckIfConfigExists(path):
     #Checks if a directory exists.
@@ -30,13 +32,15 @@ def GenerateConfig(configDictionary, configPath):
     CheckDirExistsAndCreateIfNot(directory)
 
     #Loop through keys in config file and set values of keys based on user input.
-    print(f"A config file {configPath} that should exist doesn't, creating it now, please be prepared to provide information. ")
+    print(f"{ConsoleColours.bcolours.BOLD}[ConfigHandler]{ConsoleColours.bcolours.ENDC} {ConsoleColours.bcolours.OKCYAN}A config file {configPath} that should exist doesn't, creating it now, please be prepared to provide information.{ConsoleColours.bcolours.ENDC}")
     for key in configDictionary:
-        configDictionary[key] = input(f"Please enter the following information {key}: ")
+        configDictionary[key] = input(f"{ConsoleColours.bcolours.BOLD}[ConfigHandler]{ConsoleColours.bcolours.ENDC} {ConsoleColours.bcolours.OKCYAN}Please enter the following information {key.upper()}: {ConsoleColours.bcolours.ENDC}")
 
     #Create and add data to config file.
     with open(configPath, "w+") as f:
         json.dump(configDictionary, f)
+
+    print(f"{ConsoleColours.bcolours.BOLD}[ConfigHandler]{ConsoleColours.bcolours.ENDC} {ConsoleColours.bcolours.OKGREEN}Successfully generated config file: {configPath}.{ConsoleColours.bcolours.ENDC}")
 
     return ReadConfig(configPath)
 
