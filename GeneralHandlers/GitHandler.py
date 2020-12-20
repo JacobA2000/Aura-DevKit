@@ -1,8 +1,7 @@
 import requests
 import json
 import subprocess
-from GeneralHandlers import ConfigHandler
-from SupportScripts import ConsoleColours
+from GeneralHandlers import ConfigHandler, FileHandler
 
 #Config infomation.
 gitConfigData = {}
@@ -15,7 +14,9 @@ def CheckAndSetGitConfig():
     #Checks if a git-config exists using the ConfigHandler and if so sets the username and token, if not it creates one in the correct format.
     global gitConfigData, gitUsername, gitToken
 
-    gitConfigPath = "./cfg/git-config.json"
+    mainDirPath = FileHandler.mainDirPath
+
+    gitConfigPath = f"{mainDirPath}/cfg/git-config.json"
     gitConfigTemplate = {"gitUsername": "", "gitToken": ""}
 
     gitConfigData = ConfigHandler.CheckAndGetConfig(gitConfigPath, gitConfigTemplate)
@@ -28,22 +29,22 @@ def CreateRepo(name, private):
     url = "https://api.github.com/user/repos"
     payload = {"name": name, "private": private, "auto_init": True}
 
-    print(f"{ConsoleColours.bcolours.BOLD}[GitHandler]{ConsoleColours.bcolours.ENDC} {ConsoleColours.bcolours.OKCYAN}Creating Repository {name} for user {gitUsername}. Private: {private}.{ConsoleColours.bcolours.ENDC}")
+    print(f"[GitHandler] Creating Repository {name} for user {gitUsername}. Private: {private}.")
     r = requests.post(url, auth=(gitUsername, gitToken), data=json.dumps(payload))
     
     rJson = json.loads(r.text)
 
     if r.ok:
-        print(f"{ConsoleColours.bcolours.BOLD}[GitHandler]{ConsoleColours.bcolours.ENDC} {ConsoleColours.bcolours.OKGREEN}Repository {name} created.{ConsoleColours.bcolours.ENDC}")
+        print(f"[GitHandler] Repository {name} created.")
     else:
-        print(f"{ConsoleColours.bcolours.BOLD}[GitHandler]{ConsoleColours.bcolours.ENDC} {ConsoleColours.bcolours.FAIL}Error: {rJson['message']}{ConsoleColours.bcolours.ENDC}")
+        print(f"[GitHandler] Error: {rJson['message']}")
 
     return rJson
 
 def CloneRepo(sshURL, projectsDir):
     #Starts a clone using the ssh clone url (User will of needed to setup an ssh key with github for this to work), Starts a clone subprocess, waits for it to finish then temrinates it.
-    print(f"{ConsoleColours.bcolours.BOLD}[GitHandler]{ConsoleColours.bcolours.ENDC} {ConsoleColours.bcolours.OKCYAN}Starting Clone from {sshURL}{ConsoleColours.bcolours.ENDC}")
+    print(f"[GitHandler] Starting Clone from {sshURL}")
     p = subprocess.Popen(['git', 'clone', str(sshURL), projectsDir])
     p.wait()
     p.terminate()
-    print(f"{ConsoleColours.bcolours.BOLD}[GitHandler]{ConsoleColours.bcolours.ENDC} {ConsoleColours.bcolours.OKGREEN}Clone Complete{ConsoleColours.bcolours.ENDC}")
+    print(f"[GitHandler] Clone Complete.")

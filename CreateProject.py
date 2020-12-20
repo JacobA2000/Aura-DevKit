@@ -1,29 +1,30 @@
 import sys
 import os
-from GeneralHandlers import ConfigHandler, ProjectsHandler, GitHandler
-from SupportScripts import ConsoleColours
+from GeneralHandlers import ConfigHandler, ProjectsHandler, GitHandler, FileHandler
 
 def GenerateShellScript():
+    mainDirPath = FileHandler.mainDirPath
+    print(mainDirPath) 
     #Use ConfigHandler method to check if the shell directory exists.
-    ConfigHandler.CheckDirExistsAndCreateIfNot("./shell")
+    ConfigHandler.CheckDirExistsAndCreateIfNot(f"{mainDirPath}/shell")
     pythonName = os.path.basename(sys.executable)
     
     if os.name == "nt":
         #Checks if .bat file exists
-        if os.path.exists("./shell/createproject.bat") == False:
+        if os.path.exists(f"{mainDirPath}/shell/createproject.bat") == False:
             #Create bat file to run quickly on windows.
-            print(f"{ConsoleColours.bcolours.BOLD}[CreateProject]{ConsoleColours.bcolours.ENDC} {ConsoleColours.bcolours.OKCYAN}Creating shell script at {os.getcwd()}/shell/createproject.bat ...{ConsoleColours.bcolours.ENDC}")
-            with open("./shell/createproject.bat", "w") as batf:
+            print(f"[CreateProject] Creating shell script at {mainDirPath}/shell/createproject.bat...")
+            with open(f"{mainDirPath}/shell/createproject.bat", "w") as batf:
                 batf.write(f"{pythonName} \"{__file__}\" %1 %2")
-            print(f"{ConsoleColours.bcolours.BOLD}[CreateProject]{ConsoleColours.bcolours.ENDC} {ConsoleColours.bcolours.OKGREEN}Shell script successfully generated.{ConsoleColours.bcolours.ENDC}")
+            print(f"[CreateProject] Shell script successfully generated.")
 
     else:
-        if os.path.exists("./shell/createproject.sh") == False:
+        if os.path.exists(f"{mainDirPath}/shell/createproject.sh") == False:
             #Create shell file to run quickly on linux.
-            print(f"{ConsoleColours.bcolours.BOLD}[CreateProject]{ConsoleColours.bcolours.ENDC} {ConsoleColours.bcolours.OKCYAN}Creating shell script at {os.getcwd()}/shell/createproject.sh ...{ConsoleColours.bcolours.ENDC}")
-            with open("./shell/createproject.sh", "w") as shf:
-                shf.write(f"{pythonName} \"{os.getcwd()}/{__file__}\" %1 %2")
-            print(f"{ConsoleColours.bcolours.BOLD}[CreateProject]{ConsoleColours.bcolours.ENDC} {ConsoleColours.bcolours.OKGREEN}Shell script successfully generated.{ConsoleColours.bcolours.ENDC}")
+            print(f"[CreateProject] Creating shell script at {mainDirPath}/shell/createproject.sh...")
+            with open(f"{mainDirPath}/shell/createproject.sh", "w") as shf:
+                shf.write(f"{pythonName} \"{mainDirPath}/{__file__}\" %1 %2")
+            print(f"[CreateProject] Shell script successfully generated.")
 
 name = ""
 private = True
@@ -42,7 +43,7 @@ elif len(sys.argv) >= 3:
     elif private.lower() == "true":
         private = True
     else:
-        print(f"{ConsoleColours.bcolours.BOLD}[CreateProject]{ConsoleColours.bcolours.ENDC} {ConsoleColours.bcolours.WARNING}Incorrect value for private argument, please only enter true or false.\nContinuing using the default value of True. This can be changed on the GitHub website if incorrect.{ConsoleColours.bcolours.ENDC}")
+        print(f"[CreateProject] Incorrect value for private argument, please only enter true or false.\nContinuing using the default value of True. This can be changed on the GitHub website if incorrect.")
         private = True
 
 #Check configs are correct.
