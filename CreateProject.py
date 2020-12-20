@@ -4,7 +4,6 @@ from GeneralHandlers import ConfigHandler, ProjectsHandler, GitHandler, FileHand
 
 def GenerateShellScript():
     mainDirPath = FileHandler.mainDirPath
-    print(mainDirPath) 
     #Use ConfigHandler method to check if the shell directory exists.
     ConfigHandler.CheckDirExistsAndCreateIfNot(f"{mainDirPath}/shell")
     pythonName = os.path.basename(sys.executable)
@@ -23,7 +22,7 @@ def GenerateShellScript():
             #Create shell file to run quickly on linux.
             print(f"[CreateProject] Creating shell script at {mainDirPath}/shell/createproject.sh...")
             with open(f"{mainDirPath}/shell/createproject.sh", "w") as shf:
-                shf.write(f"{pythonName} \"{mainDirPath}/{__file__}\" %1 %2")
+                shf.write(f"{pythonName} \"{mainDirPath}/{__file__}\" $1 $2")
             print(f"[CreateProject] Shell script successfully generated.")
 
 name = ""
