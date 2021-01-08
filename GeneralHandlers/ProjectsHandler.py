@@ -31,11 +31,14 @@ def CreateProject(name="", private=True):
 
     if name == "":
         name = input(f"[ProjectsHandler] Project Name: ")
+    
+    if len(name) > 100:
+        print(f"The character limit for a git repo name is 100 characters, your name was {len(name)} characters.")
+    else:
+        gitRepo = GitHandler.CreateRepo(name, private)
+        sshURL = gitRepo["ssh_url"]
 
-    gitRepo = GitHandler.CreateRepo(name, private)
-    sshURL = gitRepo["ssh_url"]
+        cloneLocation = projectsDir + name
 
-    cloneLocation = projectsDir + name
-
-    GitHandler.CloneRepo(sshURL, cloneLocation)
-    OpenProjectDirectory(cloneLocation)
+        GitHandler.CloneRepo(sshURL, cloneLocation)
+        OpenProjectDirectory(cloneLocation)
