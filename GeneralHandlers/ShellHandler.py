@@ -28,7 +28,7 @@ def GenerateShellScript(fileToExecute, numArgs):
             #Create shell file to run quickly on linux.
             print(f"[CreateProject] Creating shell script at {mainDirPath}/shell/{shellScriptName}.sh...")
             with open(f"{mainDirPath}/shell/{shellScriptName}.sh", "w") as shf:
-                shf.write(f"{pythonName} \"{mainDirPath}\{fileToExecute}\"")
+                shf.write(f"{pythonName} \"{fileToExecute}\"")
 
                 for i in range(numArgs):
                     shf.write(f" ${i+1}")

@@ -73,5 +73,3 @@ else:
 
     #Create the project.
     ProjectsHandler.CreateProject(name, private)
-
-
