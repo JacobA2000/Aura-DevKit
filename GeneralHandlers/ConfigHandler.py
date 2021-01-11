@@ -44,8 +44,13 @@ def GenerateConfig(configDictionary, configPath):
     return ReadConfig(configPath)
 
 def ReadConfig(configPath):
-    #Opens the config file and reads the json data, storeing it in the configData dictionary. 
+    #Opens the config file and reads the json data, storing it in the configData dictionary. 
     with open(configPath, "r") as f:
         configData = json.load(f)
     
     return configData
+
+def SaveConfig(configPath, configData):
+    with open(configPath, "w+") as f:
+        f.truncate(0)
+        json.dump(configData, f)
