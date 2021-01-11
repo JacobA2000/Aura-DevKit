@@ -68,8 +68,8 @@ else:
             private = True
 
     #Check configs are correct.
-    ProjectsHandler.CheckAndSetProjectsConfig()
-    GitHandler.CheckAndSetGitConfig()
+    ProjectsHandler.CheckAndSetProjectsConfig(userInput=True)
+    GitHandler.CheckAndSetGitConfig(userInput=False)
 
     #Create the project.
     ProjectsHandler.CreateProject(name, private)

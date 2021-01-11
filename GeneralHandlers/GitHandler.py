@@ -15,12 +15,13 @@ gitToken = ""
 
 def AuthorizeWithGit():
     #https://docs.github.com/en/free-pro-team@latest/developers/apps/authorizing-oauth-apps#device-flow
+    clientID = "62cff3fa8c2b640a4d02"
     deviceEndpointURL = 'https://github.com/login/device/code'
 
     deviceReq = requests.post(
         deviceEndpointURL, 
         data={
-            "client_id": "62cff3fa8c2b640a4d02",
+            "client_id": clientID,
             "scope": "repo user"
         }
     )
@@ -45,7 +46,7 @@ def AuthorizeWithGit():
         tokenReq = requests.post(
             tokenEndpointURL, 
             data={
-                "client_id": "62cff3fa8c2b640a4d02",
+                "client_id": clientID,
                 "device_code": deviceReqJson["device_code"],
                 "grant_type": "urn:ietf:params:oauth:grant-type:device_code"
             }
@@ -60,13 +61,12 @@ def AuthorizeWithGit():
             gitConfigData = ConfigHandler.ReadConfig(f"{FileHandler.mainDirPath}/cfg/git-config.json")
             gitConfigData["gitToken"] = tokenReqJson["access_token"]
             ConfigHandler.UpdateConfig(f"{FileHandler.mainDirPath}/cfg/git-config.json", gitConfigData)
-            print("[GitHandler] User succesfully authenticated via device flow.")
+            print(f"[GitHandler] User succesfully authenticated via device flow. Authentication can be revoked at any time via this url https://github.com/settings/connections/applications/{clientID}")
             break
         
         #Check if the code has timed out yet.
         currentTime = time.time()
         if (currentTime - int(deviceReqJson["expires_in"])) >= startTime:
-            print(tokenReqJson)
             print("[GitHandler] CODE TIMED OUT! Generating new code in 5 seconds...")
             time.sleep(5)
             #Recursively call this function to start the auth process again.
@@ -79,27 +79,35 @@ def AuthorizeWithGit():
         time.sleep(int(deviceReqJson["interval"]))
 
 
-def CheckAndSetGitConfig():
+def CheckAndSetGitConfig(userInput):
     #Checks if a git-config exists using the ConfigHandler and if so sets the username and token, if not it creates one in the correct format.
     global gitConfigData, gitUsername, gitToken
 
     mainDirPath = FileHandler.mainDirPath
 
     gitConfigPath = f"{mainDirPath}/cfg/git-config.json"
-    gitConfigTemplate = {"gitUsername": "", "gitToken": ""}
+    gitConfigTemplate = {"gitToken": ""}
 
-    gitConfigData = ConfigHandler.CheckAndGetConfig(gitConfigPath, gitConfigTemplate)
+    gitConfigData = ConfigHandler.CheckAndGetConfig(gitConfigPath, gitConfigTemplate, userInput)
 
-    gitUsername = gitConfigData["gitUsername"]
+    #If no token perform OAuth Device code method.
+    if gitConfigData["gitToken"] == "":
+        #Call the OAuth code. 
+        AuthorizeWithGit()
+        #Update gitConfigData with new data entered into file.
+        gitConfigData = ConfigHandler.ReadConfig(gitConfigPath)
+
     gitToken = gitConfigData["gitToken"]
 
 def CreateRepo(name, private):
     #Creates a new GitHub repo via the GitHub api using the users login token.
     url = "https://api.github.com/user/repos"
+    headers = {"Authorization": f"token {gitToken}"}
     payload = {"name": name, "private": private, "auto_init": True}
 
     print(f"[GitHandler] Creating Repository {name} for user {gitUsername}. Private: {private}.")
-    r = requests.post(url, auth=(gitUsername, gitToken), data=json.dumps(payload))
+    #OLD AUTH METHOD r = requests.post(url, auth=(gitUsername, gitToken), data=json.dumps(payload))
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
     
     rJson = json.loads(r.text)
 

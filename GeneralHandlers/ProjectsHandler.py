@@ -4,7 +4,7 @@ from GeneralHandlers import ConfigHandler, GitHandler, FileHandler
 projectsConfigData = {}
 projectsDir = ""
 
-def CheckAndSetProjectsConfig():
+def CheckAndSetProjectsConfig(userInput):
     #Checks if a git-config exists using the ConfigHandler and if so sets the username and token, if not it creates one in the correct format.
     global projectsDir, projectsConfigData
 
@@ -13,7 +13,7 @@ def CheckAndSetProjectsConfig():
     projectsConfigPath = f"{mainDirPath}/cfg/projects-config.json"
     projectsConfigTemplate = {"projectsDir": ""}
 
-    projectsConfigData = ConfigHandler.CheckAndGetConfig(projectsConfigPath, projectsConfigTemplate)
+    projectsConfigData = ConfigHandler.CheckAndGetConfig(projectsConfigPath, projectsConfigTemplate, userInput)
 
     projectsDir = projectsConfigData["projectsDir"]
 

@@ -1,6 +1,7 @@
 import sys
 import urllib.parse
 import webbrowser
+import requests
 from GeneralHandlers import ShellHandler
 
 codePath = ""

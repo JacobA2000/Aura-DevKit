@@ -17,23 +17,26 @@ def CheckIfConfigExists(path):
     else:
         return False
 
-def CheckAndGetConfig(configPath, configTemplate):
+def CheckAndGetConfig(configPath, configTemplate, userInput):
     #Checks if a config exists using the ConfigHandler and if so reads and stores the data in configData and returns it, if not it creates one in the correct format.
     if CheckIfConfigExists(configPath):
-        gitConfigData = ReadConfig(configPath)
+        configData = ReadConfig(configPath)
     else:
-        gitConfigData = GenerateConfig(configTemplate, configPath)
+        configData = GenerateConfig(configTemplate, configPath, userInput)
 
-    return gitConfigData
+    return configData
 
-def GenerateConfig(configDictionary, configPath):
+def GenerateConfig(configDictionary, configPath, userInput):
     directory = configPath.rpartition("/")[0]
     CheckDirExistsAndCreateIfNot(directory)
 
-    #Loop through keys in config file and set values of keys based on user input.
-    print(f"[ConfigHandler] A config file {configPath} that should exist doesn't, creating it now, please be prepared to provide information.")
-    for key in configDictionary:
-        configDictionary[key] = input(f"[ConfigHandler] Please enter the following information {key.upper()}: ")
+    if userInput == True:
+        #Loop through keys in config file and set values of keys based on user input.
+        print(f"[ConfigHandler] A config file {configPath} that should exist doesn't, creating it now, please be prepared to provide information.")
+        for key in configDictionary:
+            configDictionary[key] = input(f"[ConfigHandler] Please enter the following information {key.upper()}: ")
+    else:
+        print(f"[ConfigHandler] A config file {configPath} that should exist doesn't, creating it now.")
 
     #Create and add data to config file.
     with open(configPath, "w+") as f:
