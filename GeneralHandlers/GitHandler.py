@@ -25,6 +25,9 @@ def AuthorizeWithGit():
         }
     )
 
+    #Get the time we recieved a response.
+    startTime = time.time()
+
     #Convert the returned url query string to a JSON style dictionary.
     deviceReqJson = dict(urllib.parse.parse_qsl(deviceReq.text))
 
@@ -32,10 +35,11 @@ def AuthorizeWithGit():
     [GitHandler] Git authentication required, a new browser tab will open soon asking for the code shown below.
                  CODE: {deviceReqJson['user_code']}""")
     time.sleep(5)
-    webbrowser.open_new_tab("https://github.com/login/device")
+    webbrowser.open_new_tab(deviceReqJson["verification_uri"])
 
-    #Check every deviceReqJson[interval] seconds for response.
+    #Send new post to check for access token every deviceReqJson[interval] seconds.
     while True:
+        #Send the post request.
         tokenEndpointURL = 'https://github.com/login/oauth/access_token'
 
         tokenReq = requests.post(
@@ -47,14 +51,31 @@ def AuthorizeWithGit():
             }
         )
 
+        #Convert the returned url query string to a JSON style dictionary.
         tokenReqJson = dict(urllib.parse.parse_qsl(tokenReq.text))
 
+        #Check for token
         if "access_token" in tokenReqJson:
+            #Save token to config file.
             gitConfigData = ConfigHandler.ReadConfig(f"{FileHandler.mainDirPath}/cfg/git-config.json")
             gitConfigData["gitToken"] = tokenReqJson["access_token"]
-            ConfigHandler.SaveConfig(f"{FileHandler.mainDirPath}/cfg/git-config.json", gitConfigData)
+            ConfigHandler.UpdateConfig(f"{FileHandler.mainDirPath}/cfg/git-config.json", gitConfigData)
+            print("[GitHandler] User succesfully authenticated via device flow.")
+            break
+        
+        #Check if the code has timed out yet.
+        currentTime = time.time()
+        if (currentTime - int(deviceReqJson["expires_in"])) >= startTime:
+            print(tokenReqJson)
+            print("[GitHandler] CODE TIMED OUT! Generating new code in 5 seconds...")
+            time.sleep(5)
+            #Recursively call this function to start the auth process again.
+            AuthorizeWithGit()
+            #If the function has been recursively called we do not want to sleep for 5 seconds 
+            #once authenticated so we break from the loop here.
             break
 
+        #Wait for the interval.
         time.sleep(int(deviceReqJson["interval"]))
 
 
