@@ -1,5 +1,5 @@
 # Aura-DevKit 
-<img src="./img/Aura-DevKit-Logo.png" alt="Aura-DevKit Logo" style="width:100px;"/>
+<img src="./img/Aura-DevKit-Logo-Small.png" alt="Aura-DevKit Logo" style="width:100px;"/>
 
 ## Contents
 1. [Introduction](#Introduction)

@@ -1,34 +1,11 @@
 import sys
 import os
-from GeneralHandlers import ConfigHandler, ProjectsHandler, GitHandler, FileHandler
-
-def GenerateShellScript():
-    mainDirPath = FileHandler.mainDirPath
-    #Use ConfigHandler method to check if the shell directory exists.
-    ConfigHandler.CheckDirExistsAndCreateIfNot(f"{mainDirPath}/shell")
-    pythonName = os.path.basename(sys.executable)
-    
-    if os.name == "nt":
-        #Checks if .bat file exists
-        if os.path.exists(f"{mainDirPath}/shell/createproject.bat") == False:
-            #Create bat file to run quickly on windows.
-            print(f"[CreateProject] Creating shell script at {mainDirPath}/shell/createproject.bat...")
-            with open(f"{mainDirPath}/shell/createproject.bat", "w") as batf:
-                batf.write(f"{pythonName} \"{__file__}\" %1 %2")
-            print(f"[CreateProject] Shell script successfully generated.")
-
-    else:
-        if os.path.exists(f"{mainDirPath}/shell/createproject.sh") == False:
-            #Create shell file to run quickly on linux.
-            print(f"[CreateProject] Creating shell script at {mainDirPath}/shell/createproject.sh...")
-            with open(f"{mainDirPath}/shell/createproject.sh", "w") as shf:
-                shf.write(f"{pythonName} \"{mainDirPath}/{__file__}\" $1 $2")
-            print(f"[CreateProject] Shell script successfully generated.")
+from GeneralHandlers import ConfigHandler, ProjectsHandler, GitHandler, FileHandler, ShellHandler
 
 name = ""
 private = None
 
-GenerateShellScript()
+ShellHandler.GenerateShellScript(__file__, 2)
 
 if "help" in (x.lower() for x in sys.argv):
     print("""
