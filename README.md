@@ -157,8 +157,18 @@ Now we should be able to open up a terminal(powershell, cmd, windows terminal, e
 
 #### **Linux**:
 On Linux we need to add our shell folder to our PATH environment variable. To do this we need to do the following:
-1. cd to your home directory
+1. cd into the shell folder
+    ```bash
+    cd shell
     ```
+1. Give the shell script executable permissions.
+    ```bash
+    sudo chmod +x <scriptname>
+    ```
+    Replace \<scriptname> with the script you wish to make executeable e.g. for create project it would be createproject.sh.
+
+1. cd to your home directory
+    ```bash
     cd $HOME
     ```
 1. Open up your terminals rc file (this file name varies depending on your terminal but in most distros, the default will be .bashrc, I have included some popular terminals rc files below) with your favorite text editor(I would recommend using vim)
