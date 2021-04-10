@@ -1,0 +1,1 @@
+python.exe "e:/JACOB/Personal Projects/Active Projects/Aura-DevKit/CreateProject.py" %1 %2
