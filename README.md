@@ -7,9 +7,6 @@
 1. [CreateProject](#CreateProject) 
     * [About](#About-CreateProject)
     * [Installation](#CreateProject-Installation)
-1. [CodeToCarbon](#CodeToCarbon)
-    * [About](#About-CodeToCarbon)
-    * [Installation](#CodeToCarbon-Installation)
 1. [Adding Path Variable](#Adding-Path-Variable)
     * [Windows](#Windows)
     * [Linux](#Linux)
@@ -21,9 +18,8 @@ Aura-DevKit is a collection of command line tools created to make the process of
 Aura-DevKit is made up of different modules and more will be added as development continues. The current modules are:
 
 * [CreateProject](#CreateProject)
-* [CodeToCarbon](#CodeToCarbon)
 
-Aura-DevKit is cross-platform and should work on both Windows and Linux although the setup process varies between operating systems.
+Aura-DevKit is cross-platform and should work on both Windows and Linux although the setup process varies between operating systems and the tool is currently built under windows so there may be more issues on linux, however I try to test it as much as possible.
 ***
 
 ## **Requirements**
@@ -113,32 +109,6 @@ CreateProject can be run by just running the python file as you would any other,
 
 (There are plans to reduce the complexity of setup in later updates)
 
-***
-
-## **CodeToCarbon**
-### **About CodeToCarbon**
-This is a WIP tool and is very rough around the edges.
-
-CodeToCarbon is a tool that automatically sends code to the website carbon.now.sh to generate an image of the code.
-
-CodeToCarbon can be called by running
-```bash
-codetoimage <filepath>
-```
-\<filepath> is an optional parameter. If no parameter is parsed the user will be asked to input the filepath.
-
-## **CodeToCarbon Installation**
-1. For the first launch CodeToCarbon needs to be ran with python:
-    ```python
-    python CodeToCarbon.py
-    ```
-    This is done to create the shell script.
-
-1. **(Optional but strongly recommended) Add the shell folder to your PATH variable.**
-
-    Although not essential, doing this is strongly recommended as it allows you to call the command from any location and also avoids the need to call python directly.
-
-    For instructions on how to set this up click [here](#Adding-Path-Variable).
 ***
 
 ## **Adding PATH Variable**

@@ -5,7 +5,7 @@ from GeneralHandlers import ConfigHandler, ProjectsHandler, GitHandler, FileHand
 name = ""
 private = None
 
-ShellHandler.GenerateShellScript(__file__, 2)
+ShellHandler.generate_shell_script(__file__, 2)
 
 if "help" in (x.lower() for x in sys.argv):
     print("""
@@ -45,8 +45,8 @@ else:
             private = True
 
     #Check configs are correct.
-    ProjectsHandler.CheckAndSetProjectsConfig(userInput=True)
-    GitHandler.CheckAndSetGitConfig(userInput=False)
+    ProjectsHandler.check_set_projects_config(user_input=True)
+    GitHandler.check_and_set_git_config(user_input=False)
 
     #Create the project.
-    ProjectsHandler.CreateProject(name, private)
+    ProjectsHandler.create_project(name, private)
