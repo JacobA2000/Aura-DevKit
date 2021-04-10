@@ -31,6 +31,8 @@ if "help" in (x.lower() for x in sys.argv):
 else:
     if len(sys.argv) == 2:
         name = str(sys.argv[1])
+        #If no argument for private given presume private = true for security reasons
+        private = True
     elif len(sys.argv) >= 3:
         name = str(sys.argv[1])
         private = str(sys.argv[2])
