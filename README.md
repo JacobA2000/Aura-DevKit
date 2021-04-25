@@ -1,11 +1,11 @@
 # Aura-DevKit 
-<img src="./img/Aura-DevKit-Logo-Small.png" alt="Aura-DevKit Logo" style="width:100px;"/>
+<img src="https://github.com/JacobA2000/Aura-DevKit/blob/main/img/Aura-DevKit-Logo-Small.png" alt="Aura-DevKit Logo" style="width:100px;"/>
 
 ## Contents
 1. [Introduction](#introduction)
 1. [Requirements](#requirements)
 1. [CreateProject](#createproject) 
-    * [About](#about-createProject)
+    * [About](#about-createproject)
     * [Installation](#createproject-installation)
 1. [Adding Path Variable](#adding-path-variable)
     * [Windows](#windows)
@@ -17,7 +17,7 @@ Aura-DevKit is a collection of command line tools created to make the process of
 
 Aura-DevKit is made up of different modules and more will be added as development continues. The current modules are:
 
-* [CreateProject](#CreateProject)
+* [CreateProject](#createproject)
 
 Aura-DevKit is cross-platform and should work on both Windows and Linux although the setup process varies between operating systems and the tool is currently built under windows so there may be more issues on linux, however I try to test it as much as possible.
 ***
@@ -89,23 +89,23 @@ CreateProject can be run by just running the python file as you would any other,
 
         **You will be provided with a code in the terminal** (this lasts 15mins after this time has passed a new code will be generated). An example of what to look for is shown below:
 
-        <img src="./img/git-auth-code-example.png" alt="Auth Code Example"/>
+        <img src="https://github.com/JacobA2000/Aura-DevKit/blob/main/img/git-auth-code-example.png" alt="Auth Code Example"/>
 
         Approximately 5 seconds after receiving this message your default web browser should open to the webpage shown below:
 
-        <img src="./img/git-auth-webpage-example.png" alt="Auth Webpage Example" style="width:600px;"/>
+        <img src="https://github.com/JacobA2000/Aura-DevKit/blob/main/img/git-auth-webpage-example.png" alt="Auth Webpage Example" style="width:600px;"/>
 
         **You should enter the code from the terminal into the boxes on this webpage.**
 
         After doing so you should see this message in the terminal:
-        <img src="./img/git-auth-success-example.png" alt="Auth Code Example"/>
+        <img src="https://github.com/JacobA2000/Aura-DevKit/blob/main/img/git-auth-success-example.png" alt="Auth Code Example"/>
 
         This means that you have successfully authenticated with GitHub. From here you can either carry on and create a project by entering a name or kill the program.
 1. **(Optional but strongly recommended) Add the shell folder to your PATH variable.**
 
     Although not essential, doing this is strongly recommended as it allows you to call the command from any location and also avoids the need to call python directly.
 
-    For instructions on how to set this up click [here](#Adding-Path-Variable).
+    For instructions on how to set this up click [here](#adding-path-variable).
 
 (There are plans to reduce the complexity of setup in later updates)
 
