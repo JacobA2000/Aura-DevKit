@@ -1,5 +1,5 @@
 # Aura-DevKit 
-<img src="https://raw.githubusercontent.com/JacobA2000/Aura-DevKit/main/img/Aura-DevKit-Logo-Small.png" alt="Aura-DevKit Logo" style="width:100px;"/>
+<img src="https://raw.githubusercontent.com/JacobA2000/Aura-DevKit/main/img/Aura-DevKit-Logo-Small.png" alt="Aura-DevKit Logo"/>
 
 ## Contents
 1. [Introduction](#introduction)
@@ -93,7 +93,7 @@ CreateProject can be run by just running the python file as you would any other,
 
         Approximately 5 seconds after receiving this message your default web browser should open to the webpage shown below:
 
-        <img src="https://raw.githubusercontent.com/JacobA2000/Aura-DevKit/main/img/git-auth-webpage-example.png" alt="Auth Webpage Example" style="width:600px;"/>
+        <img src="https://raw.githubusercontent.com/JacobA2000/Aura-DevKit/main/img/git-auth-webpage-example.png" alt="Auth Webpage Example"/>
 
         **You should enter the code from the terminal into the boxes on this webpage.**
 
