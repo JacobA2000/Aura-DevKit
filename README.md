@@ -2,14 +2,14 @@
 <img src="./img/Aura-DevKit-Logo-Small.png" alt="Aura-DevKit Logo" style="width:100px;"/>
 
 ## Contents
-1. [Introduction](#Introduction)
-1. [Requirements](#Requirements)
-1. [CreateProject](#CreateProject) 
-    * [About](#About-CreateProject)
-    * [Installation](#CreateProject-Installation)
-1. [Adding Path Variable](#Adding-Path-Variable)
-    * [Windows](#Windows)
-    * [Linux](#Linux)
+1. [Introduction](#introduction)
+1. [Requirements](#requirements)
+1. [CreateProject](#createproject) 
+    * [About](#about-createProject)
+    * [Installation](#createproject-installation)
+1. [Adding Path Variable](#adding-path-variable)
+    * [Windows](#windows)
+    * [Linux](#linux)
 
 ***
 ## **Introduction**
