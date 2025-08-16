@@ -1,5 +1,6 @@
 # Aura-DevKit 
-<img src="https://raw.githubusercontent.com/JacobA2000/Aura-DevKit/main/img/Aura-DevKit-Logo-Small.png" alt="Aura-DevKit Logo"/>
+
+![](/img/Aura-DevKit-Logo-Small.png)
 
 ## Contents
 1. [Introduction](#introduction)
@@ -89,16 +90,16 @@ CreateProject can be run by just running the python file as you would any other,
 
         **You will be provided with a code in the terminal** (this lasts 15mins after this time has passed a new code will be generated). An example of what to look for is shown below:
 
-        <img src="https://raw.githubusercontent.com/JacobA2000/Aura-DevKit/main/img/git-auth-code-example.png" alt="Auth Code Example"/>
+        ![](/img/git-auth-code-example.png)
 
         Approximately 5 seconds after receiving this message your default web browser should open to the webpage shown below:
 
-        <img src="https://raw.githubusercontent.com/JacobA2000/Aura-DevKit/main/img/git-auth-webpage-example.png" alt="Auth Webpage Example"/>
+        ![](/img/git-auth-webpage-example.png)
 
         **You should enter the code from the terminal into the boxes on this webpage.**
 
         After doing so you should see this message in the terminal:
-        <img src="https://raw.githubusercontent.com/JacobA2000/Aura-DevKit/main/img/git-auth-success-example.png" alt="Auth Code Example"/>
+        ![](/img/git-auth-success-example.png)
 
         This means that you have successfully authenticated with GitHub. From here you can either carry on and create a project by entering a name or kill the program.
 1. **(Optional but strongly recommended) Add the shell folder to your PATH variable.**
